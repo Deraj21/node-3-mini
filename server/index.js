@@ -4,6 +4,7 @@ const mc = require( `./controllers/messages_controller` );
 const session = require('express-session');
 require('dotenv').config();
 const createInitialSession = require('./middlewares/session');
+const filter = require('./middlewares/filter');
 
 const app = express();
 
@@ -18,10 +19,16 @@ app.use( session({
   }
 }) );
 
-app.use( (req, res, next) => createInitialSession(req, res, next) );
 
+// middleware
+app.use( (req, res, next) => createInitialSession(req, res, next) );
+app.use( (req, res, next) => { (req.method === 'POST' || req.method === 'PUT') ? filter(req, res, next) : next(); } );
+
+
+// endpoints
 app.post( "/api/messages", mc.create );
 app.get( "/api/messages", mc.read );
+app.get( "/api/messages/history", mc.history );
 app.put( "/api/messages", mc.update );
 app.delete( "/api/messages", mc.delete );
 

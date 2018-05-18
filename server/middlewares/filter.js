@@ -1,5 +1,5 @@
 let notAllowed = [
-  'fuck', 'shit', 'damn', 'bitch', 'ass'
+  'fart', 'butt', 'poop'
 ]; // censored stuff
 
 module.exports = (req, res, next) => {
@@ -12,8 +12,5 @@ module.exports = (req, res, next) => {
 
 
 /*
-Use module.exports to export a function that has a req, res, and next parameter.
-Copy in the following filter code:
- filter logic
-Call next after the while loop.
+
 */
